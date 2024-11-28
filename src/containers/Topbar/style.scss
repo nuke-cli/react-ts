@@ -1,0 +1,36 @@
+.Topbar {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	@include layer('topbar');
+
+	&--ts {
+		background: $color-ts-primary;
+		color: $color-light;
+	}
+
+	&--js {
+		background: $color-js-primary;
+		color: $color-dark;
+	}
+
+	&__content {
+		padding: spacing('sm');
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__title {
+		padding: spacing('sm');
+		margin: 0;
+		color: inherit;
+	}
+
+	&__chips {
+		display: grid;
+		grid-template-columns: repeat(2, auto);
+		gap: spacing('sm');
+	}
+}

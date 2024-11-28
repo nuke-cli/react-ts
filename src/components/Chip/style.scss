@@ -1,0 +1,28 @@
+.Chip {
+	width: fit-content;
+	padding: spacing('sm');
+	border-width: 2px;
+	border-style: solid;
+	border-color: $color-light;
+	border-radius: $size-border-radius;
+	color: $color-light;
+	cursor: pointer;
+
+	&:hover {
+		border-width: 3px;
+	}
+
+	&--active {
+		background: $color-light;
+		color: $color-dark;
+		pointer-events: none;
+	}
+
+	&--large {
+		padding: spacing('lg');
+	}
+
+	&--small {
+		padding: spacing('sm');
+	}
+}

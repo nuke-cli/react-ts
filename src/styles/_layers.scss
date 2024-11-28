@@ -1,0 +1,21 @@
+@mixin layer($type: 'overlay') {
+	@if $type == 'notification' {
+		z-index: 5px;
+	}
+
+	@if $type == 'modal' {
+		z-index: 4px;
+	}
+
+	@if $type == 'menu' {
+		z-index: 3px;
+	}
+
+	@if $type == 'topbar' {
+		z-index: 2px;
+	}
+
+	@if $type == 'overlay' {
+		z-index: 1px;
+	}
+}

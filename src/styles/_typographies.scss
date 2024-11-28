@@ -1,0 +1,5 @@
+@mixin font($type: 'Roboto') {
+	@if $type == 'Roboto' {
+		font-family: 'Roboto', sans-serif;
+	}
+}
