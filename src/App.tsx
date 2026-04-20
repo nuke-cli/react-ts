@@ -1,18 +1,7 @@
 import React from 'react';
-import { Topbar } from '@containers';
-import { MainProvider } from '@context';
 
-// STYLE
-import './App.scss';
-
-const App = (): JSX.Element => {
-	return (
-		<MainProvider>
-			<div className="App">
-				<Topbar id="app-topbar" />
-			</div>
-		</MainProvider>
-	);
+const App = () => {
+	return <h1 data-testid="header">React, TS, Webpack</h1>;
 };
 
 export default App;
