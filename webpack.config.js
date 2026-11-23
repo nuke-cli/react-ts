@@ -53,9 +53,10 @@ module.exports = {
 				chunks: true,
 			},
 		}),
-		// create analysis report after build
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'disabled',
+		// write a static bundle report to build/report.html (no server, no browser)
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'static',
+			openAnalyzer: false,
 		}),
 	],
 	devServer: {
