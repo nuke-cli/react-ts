@@ -53,7 +53,10 @@ module.exports = {
 				chunks: true,
 			},
 		}),
-		new BundleAnalyzerPlugin(), // create analysis report after build
+		// create analysis report after build
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled',
+		}),
 	],
 	devServer: {
 		static: path.resolve(__dirname, 'build'),
