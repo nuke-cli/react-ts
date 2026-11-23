@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { StatsWriterPlugin } = require('webpack-stats-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-module.exports = {
+const config = {
 	entry: path.resolve(__dirname, 'src', 'index.tsx'),
 	output: {
 		filename: '[name].[contenthash].js',
@@ -53,11 +53,6 @@ module.exports = {
 				chunks: true,
 			},
 		}),
-		// write a static bundle report to build/report.html (no server, no browser)
-		new BundleAnalyzerPlugin({
-			analyzerMode: 'static',
-			openAnalyzer: false,
-		}),
 	],
 	devServer: {
 		static: path.resolve(__dirname, 'public'),
@@ -67,4 +62,18 @@ module.exports = {
 		open: true,
 	},
 	mode: 'development',
+};
+
+module.exports = (env, argv) => {
+	if (argv.mode === 'production') {
+		// write a static bundle report to build/report.html (no server, no browser);
+		// production only, so dev-server rebuilds don't regenerate it
+		config.plugins.push(
+			new BundleAnalyzerPlugin({
+				analyzerMode: 'static',
+				openAnalyzer: false,
+			}),
+		);
+	}
+	return config;
 };
