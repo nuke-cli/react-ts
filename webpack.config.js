@@ -66,12 +66,13 @@ const config = {
 
 module.exports = (env, argv) => {
 	if (argv.mode === 'production') {
-		// write a static bundle report to build/report.html (no server, no browser);
-		// production only, so dev-server rebuilds don't regenerate it
+		// write a static bundle report (no server, no browser); production only, so
+		// dev-server rebuilds don't regenerate it. Kept outside build/ so it isn't deployed.
 		config.plugins.push(
 			new BundleAnalyzerPlugin({
 				analyzerMode: 'static',
 				openAnalyzer: false,
+				reportFilename: path.resolve(__dirname, 'reports', 'bundle-report.html'),
 			}),
 		);
 	}
