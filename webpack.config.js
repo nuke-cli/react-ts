@@ -67,6 +67,8 @@ const config = {
 
 module.exports = (env, argv) => {
 	if (argv.mode === 'production') {
+		// no source maps in production: they embed the original src/** in build/
+		config.devtool = false;
 		// write a static bundle report (no server, no browser); production only, so
 		// dev-server rebuilds don't regenerate it. Kept outside build/ so it isn't deployed.
 		config.plugins.push(
