@@ -45,7 +45,8 @@ const config = {
 			template: './public/index.html',
 		}),
 		new StatsWriterPlugin({
-			filename: 'stats.json', // Will be written to your output directory
+			// relative to output.path: lands in reports/, outside the deployed build/ folder
+			filename: '../reports/stats.json',
 			stats: {
 				all: false,
 				assets: true,
