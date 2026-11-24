@@ -14,7 +14,6 @@ const config = {
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],
 	},
-	devtool: 'source-map',
 	module: {
 		rules: [
 			{
@@ -62,22 +61,33 @@ const config = {
 		port: 3000,
 		open: true,
 	},
-	mode: 'development',
 };
 
-module.exports = (env, argv) => {
-	if (argv.mode === 'production') {
+// Returns a fresh object on every call, so the shared `config` is never mutated.
+module.exports = (env = {}, argv = {}) => {
+	const mode = argv.mode || 'development';
+	const isProduction = mode === 'production';
+	const isDevServer = Boolean(env.WEBPACK_SERVE);
+
+	return {
+		...config,
+		mode,
 		// no source maps in production: they embed the original src/** in build/
-		config.devtool = false;
-		// write a static bundle report (no server, no browser); production only, so
-		// dev-server rebuilds don't regenerate it. Kept outside build/ so it isn't deployed.
-		config.plugins.push(
-			new BundleAnalyzerPlugin({
-				analyzerMode: 'static',
-				openAnalyzer: false,
-				reportFilename: path.resolve(__dirname, 'reports', 'bundle-report.html'),
-			}),
-		);
-	}
-	return config;
+		devtool: isProduction ? false : 'source-map',
+		plugins: [
+			...config.plugins,
+			// write a static bundle report (no server, no browser) for production builds only,
+			// never from the dev server, so rebuilds don't regenerate it. Kept outside build/
+			// so it isn't deployed.
+			...(isProduction && !isDevServer
+				? [
+						new BundleAnalyzerPlugin({
+							analyzerMode: 'static',
+							openAnalyzer: false,
+							reportFilename: path.resolve(__dirname, 'reports', 'bundle-report.html'),
+						}),
+					]
+				: []),
+		],
+	};
 };
